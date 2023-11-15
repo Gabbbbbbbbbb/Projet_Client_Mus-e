@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,8 +20,8 @@ public class Score : MonoBehaviour
 
     [Header("MiniGameScore")]
     [Space]
-    public float timeStartMiniGame;
-    public float timeEndMiniGame;
+    private float timeStartMiniGame;
+    private float timeEndMiniGame;
     public float timePastInGame;
     [Space]
     public int miniGamePoint;
@@ -28,18 +29,22 @@ public class Score : MonoBehaviour
 
     [Header("Score Slider")]
     public Slider scoreSlider;
+    public int maxPoint;
+    public float speed = 1f;
+
     private void Start()
     {
+        scoreSlider.maxValue = maxPoint;
+        scoreSlider.value = 0;
         textPoint.enabled = false;
         textPoint.text = "+ " + point;
     }
     // Update is called once per frame
     void Update()
     {
-        textScore.text = score.ToString();
-
+        
         //Input de test 
-        if(Input.GetKeyDown(KeyCode.Z)) 
+        if(Input.GetMouseButtonDown(0)) 
         {
             AddPointToScore(point);
         }
@@ -53,13 +58,26 @@ public class Score : MonoBehaviour
         {
             AddTimePoint(100, 60);
         }
-        //Debug.Log(timeStartMiniGame);
+        //actualise la valeur du slider par rapport au score du joueur
+        if (scoreSlider.value <= score)
+        {
+            scoreSlider.value += speed * Time.deltaTime;
+            int scoreValue = (int)scoreSlider.value;
+            textScore.text = scoreValue.ToString();
+        }
+        Debug.Log(scoreSlider.value);
     }
 
     public void AddPointToScore(int score)
     {
-        this.score = this.score + score;
+        this.score += score;
+    }    
+
+    public void AddPointText()
+    {
+        //affiche un texte temporaire pour montrer le gain de point
         textPoint.enabled = true;
+        //supprime le texte temporaire au bout d'un certain temps décidé en amont
         Invoke("RemovePointText", timeDisplayPoint);
     }
 
@@ -69,7 +87,7 @@ public class Score : MonoBehaviour
     }
 
 
-    //A ajouter dans la win reaction, rentrer dans le code les point gagnables et la durée du jeu
+    //A ajouter à la fin du minijeu, rentrer dans le code les point totaux gagnables et la durée du jeu estimé
     public void AddTimePoint(int maxPoint, int timeMaxMiniGame)
     {
         //Recupere le temps à la fin du jeu
@@ -79,8 +97,11 @@ public class Score : MonoBehaviour
         //Produit en crois en fonction du temps de jeu et du max de point pouvant être gagné
         miniGamePoint = (maxPoint * (int)timePastInGame) / timeMaxMiniGame;
         score = score + miniGamePoint;
+        //affiche un texte montrant le score actuel
+        textScore.text = this.score.ToString();
     }
 
+    //a ajouter au debut du minijeu
     public void GetTime()
     {
         //Recupere le temps à l'instant ou le mini jeu se lance
