@@ -28,16 +28,18 @@ public class Score : MonoBehaviour
     [Space]
 
     [Header("Score Slider")]
-    public Slider scoreSlider;
-    public int maxPoint;
+    public Image scoreSlider;
+    public int maxScore;
     public float speed = 1f;
-
+    float scoreValue = 0;
     private void Start()
     {
-        scoreSlider.maxValue = maxPoint;
-        scoreSlider.value = 0;
+        //scoreSlider.maxValue = maxPoint;
+        //scoreSlider.value = 0;
         textPoint.enabled = false;
         textPoint.text = "+ " + point;
+        scoreValue = (float)score / maxScore;
+
     }
     // Update is called once per frame
     void Update()
@@ -59,13 +61,15 @@ public class Score : MonoBehaviour
             AddTimePoint(100, 60);
         }
         //actualise la valeur du slider par rapport au score du joueur
-        if (scoreSlider.value <= score)
+        if (scoreSlider.fillAmount <= scoreValue)
         {
-            scoreSlider.value += speed * Time.deltaTime;
-            int scoreValue = (int)scoreSlider.value;
-            textScore.text = scoreValue.ToString();
+            scoreSlider.fillAmount += speed * Time.deltaTime;
+            textScore.text = "" + (int)(scoreSlider.fillAmount * maxScore);
+            //    int scoreValue = (int)scoreSlider.value;
+            //    textScore.text = scoreValue.ToString();
         }
-        Debug.Log(scoreSlider.value);
+        
+        //Debug.Log(scoreSlider.value);
     }
 
     public void AddPointToScore(int score)
