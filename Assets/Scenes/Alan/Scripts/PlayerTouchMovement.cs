@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
@@ -23,11 +24,26 @@ public class PlayerTouchMovement : MonoBehaviour
     [SerializeField]
     private GameObject Player;
 
-    public float speed;
+    [SerializeField] private float smoothTime;
 
     // For different events raised by touch input system
     private Finger MovementFinger;
     private Vector2 MovementAmount;
+    private Rigidbody playerRB;
+    private Vector2 smoothInputSmoothVelocity;
+    public float moveSpeed;
+    public Vector2 currentMoveInput;
+    public Vector2 moveDirection;
+    
+    private void Awake()
+    {
+        playerRB = GetComponent<Rigidbody>();
+    }
+
+    // private void Start()
+    // {
+    //     moveSpeed = 50.0f;
+    // }
 
     // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.2/api/UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.html
     private void OnEnable()
@@ -102,25 +118,34 @@ public class PlayerTouchMovement : MonoBehaviour
         }
     }
 
+    // TODO: Add smooth movement feature with rigidbody velocity
     private void Update()
     {
         Vector2 joystickMove = moveAction.action.ReadValue<Vector2>().normalized;
 
-        Debug.Log(joystickMove);
+        // Debug.Log(joystickMove);
 
-        Vector3 playerMovement = speed * Time.deltaTime * new Vector3(
+        Vector3 playerMovement = moveSpeed * Time.deltaTime * new Vector3(
             joystickMove.x,
             0,
             joystickMove.y    
         );
 
-        Debug.Log(playerMovement);
+        // Debug.Log(playerMovement);
 
         Player.transform.LookAt(Player.transform.position + playerMovement, Vector3.up);
-        //Player.transform.Translate();
-        Player.transform.position += transform.forward * speed * Time.deltaTime * playerMovement.magnitude;
-        /*new Vector3(transform.right.x * playerMovement.x,
-        0,
-        transform.forward.z * playerMovement.z);*/
+
+        // currentMoveInput = Vector2.SmoothDamp(currentMoveInput, moveDirection, ref smoothInputSmoothVelocity, smoothTime);
+        playerRB.velocity = new Vector2(playerMovement.x * moveSpeed, playerMovement.y * moveSpeed);
+        
+        // Player.transform.position += transform.forward * speed * Time.deltaTime * playerMovement.magnitude;
+        // Re-order operands for better performance
+        // Player.transform.position += playerMovement.magnitude * speed * Time.deltaTime * transform.forward;
+    }
+
+    private void FixedUpdate()
+    {
+        // currentMoveInput = Vector2.SmoothDamp(currentMoveInput, moveDirection, ref smoothInputSmoothVelocity, smoothTime);
+        // playerRB.velocity = new Vector2(currentMoveInput.x * moveSpeed, currentMoveInput.y * moveSpeed);
     }
 }
