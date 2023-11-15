@@ -8,7 +8,7 @@ using TMPro;
 
 public class S_ButtonManager : MonoBehaviour
 {
-    [SerializeField] private GameObject victory;
+    [SerializeField] private GameObject score;
     [SerializeField] private Button[] buttons;
 
     [Range(0f,10f)] [SerializeField] private float timeStartGame = 2f;
@@ -38,7 +38,7 @@ public class S_ButtonManager : MonoBehaviour
                 currentButtonTarget++;
                 if (currentButtonTarget == buttons.Length)
                 {
-                    victory.SetActive(true);
+                    score.SetActive(true);
                 }
             }
         }
