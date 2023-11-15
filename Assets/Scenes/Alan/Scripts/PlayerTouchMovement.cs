@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 
 // To avoid conflicts with the class Touch
@@ -6,6 +7,10 @@ using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
 public class PlayerTouchMovement : MonoBehaviour
 {
+    // Input Action reference
+    [SerializeField]
+    private InputActionReference moveAction;
+
     // Joystick size
     [SerializeField]
     private Vector2 JoystickSize = new Vector2(180, 180);
@@ -17,6 +22,8 @@ public class PlayerTouchMovement : MonoBehaviour
     // Reference to player
     [SerializeField]
     private GameObject Player;
+
+    public float speed;
 
     // For different events raised by touch input system
     private Finger MovementFinger;
@@ -95,34 +102,25 @@ public class PlayerTouchMovement : MonoBehaviour
         }
     }
 
-     private Vector2 ClampStartPosition(Vector2 StartPosition)
+    private void Update()
     {
-        if (StartPosition.x < JoystickSize.x / 2)
-        {
-            StartPosition.x = JoystickSize.x / 2;
-        }
+        Vector2 joystickMove = moveAction.action.ReadValue<Vector2>().normalized;
 
-        if (StartPosition.y < JoystickSize.y / 2)
-        {
-            StartPosition.y = JoystickSize.y / 2;
-        }
-        else if (StartPosition.y > Screen.height - JoystickSize.y / 2)
-        {
-            StartPosition.y = Screen.height - JoystickSize.y / 2;
-        }
+        Debug.Log(joystickMove);
 
-        return StartPosition;
+        Vector3 playerMovement = speed * Time.deltaTime * new Vector3(
+            joystickMove.x,
+            0,
+            joystickMove.y    
+        );
+
+        Debug.Log(playerMovement);
+
+        Player.transform.LookAt(Player.transform.position + playerMovement, Vector3.up);
+        //Player.transform.Translate();
+        Player.transform.position += transform.forward * speed * Time.deltaTime * playerMovement.magnitude;
+        /*new Vector3(transform.right.x * playerMovement.x,
+        0,
+        transform.forward.z * playerMovement.z);*/
     }
-
-    // private void Update()
-    // {
-    //     Vector3 scaledMovement = Player.speed * Time.deltaTime * new Vector3(
-    //         MovementAmount.x,
-    //         0,
-    //         MovementAmount.y
-    //     );
-
-    //     Player.transform.LookAt(Player.transform.position + scaledMovement, Vector3.up);
-    //     Player.Move(scaledMovement);
-    // }
 }
