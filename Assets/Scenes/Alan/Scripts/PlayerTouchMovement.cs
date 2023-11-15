@@ -8,7 +8,7 @@ public class PlayerTouchMovement : MonoBehaviour
 {
     // Joystick size
     [SerializeField]
-    private Vector2 JoystickSize = new Vector2(300, 300);
+    private Vector2 JoystickSize = new Vector2(180, 180);
 
     // Reference to Floating Joystick object
     [SerializeField]
@@ -16,7 +16,7 @@ public class PlayerTouchMovement : MonoBehaviour
 
     // Reference to player
     [SerializeField]
-    // private 
+    private GameObject Player;
 
     // For different events raised by touch input system
     private Finger MovementFinger;
@@ -74,7 +74,9 @@ public class PlayerTouchMovement : MonoBehaviour
         {
             MovementFinger = null;
             Joystick.Knob.anchoredPosition = Vector2.zero;
-            Joystick.gameObject.SetActive(false);
+
+            // Hides the Joystick when player's finger is not touching the screen
+            // Joystick.gameObject.SetActive(false);
             MovementAmount = Vector2.zero;
         }
     }
@@ -85,9 +87,11 @@ public class PlayerTouchMovement : MonoBehaviour
         {
             MovementFinger = TouchedFinger;
             MovementAmount = Vector2.zero;
-            Joystick.gameObject.SetActive(true);
-            Joystick.RectTransform.sizeDelta = JoystickSize;
-            Joystick.RectTransform.anchoredPosition = ClampStartPosition(TouchedFinger.screenPosition);
+
+            // Make the Joystick visible where player touches the screen
+            // Joystick.gameObject.SetActive(true);
+            // Joystick.RectTransform.sizeDelta = JoystickSize;
+            // Joystick.RectTransform.anchoredPosition = ClampStartPosition(TouchedFinger.screenPosition);
         }
     }
 

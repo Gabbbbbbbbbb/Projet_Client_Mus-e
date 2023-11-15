@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 79298783}
   - component: {fileID: 79298784}
+  - component: {fileID: 79298785}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -186,7 +187,22 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 555068918}
+--- !u!114 &79298785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79298782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5315f2c8c3743a64fbd7c54ea97f6485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JoystickSize: {x: 300, y: 300}
+  Joystick: {fileID: 772413588}
+  Player: {fileID: 79298782}
 --- !u!1 &555068916
 GameObject:
   m_ObjectHideFlags: 0
