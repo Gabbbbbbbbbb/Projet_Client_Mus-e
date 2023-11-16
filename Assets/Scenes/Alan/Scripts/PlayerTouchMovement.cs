@@ -14,7 +14,7 @@ public class PlayerTouchMovement : MonoBehaviour
 
     // Joystick size
     [SerializeField]
-    private Vector2 JoystickSize = new Vector2(180, 180);
+    private Vector2 JoystickSize = new Vector2(200, 200);
 
     // Reference to Floating Joystick object
     [SerializeField]
@@ -31,19 +31,14 @@ public class PlayerTouchMovement : MonoBehaviour
     private Vector2 MovementAmount;
     private Rigidbody playerRB;
     private Vector2 smoothInputSmoothVelocity;
+    private Vector2 currentMoveInput;
+    private Vector2 moveDirection;
     public float moveSpeed;
-    public Vector2 currentMoveInput;
-    public Vector2 moveDirection;
     
     private void Awake()
     {
         playerRB = GetComponent<Rigidbody>();
     }
-
-    // private void Start()
-    // {
-    //     moveSpeed = 50.0f;
-    // }
 
     // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.2/api/UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.html
     private void OnEnable()
@@ -68,7 +63,7 @@ public class PlayerTouchMovement : MonoBehaviour
         if (MovedFinger == MovementFinger)
         {
             Vector2 knobPosition;
-            float maxMovement = JoystickSize.x / 2f;
+            float maxMovement = JoystickSize.x / 2.0f;
             ETouch.Touch currentTouch = MovedFinger.currentTouch;
 
             if (Vector2.Distance(
@@ -134,13 +129,14 @@ public class PlayerTouchMovement : MonoBehaviour
         // Debug.Log(playerMovement);
 
         Player.transform.LookAt(Player.transform.position + playerMovement, Vector3.up);
+        Player.transform.position += playerMovement.magnitude * moveSpeed * Time.deltaTime * transform.forward;
 
         // currentMoveInput = Vector2.SmoothDamp(currentMoveInput, moveDirection, ref smoothInputSmoothVelocity, smoothTime);
-        playerRB.velocity = new Vector2(playerMovement.x * moveSpeed, playerMovement.y * moveSpeed);
+        // playerRB.velocity = new Vector2(playerMovement.x * moveSpeed, playerMovement.y * moveSpeed);
         
         // Player.transform.position += transform.forward * speed * Time.deltaTime * playerMovement.magnitude;
         // Re-order operands for better performance
-        // Player.transform.position += playerMovement.magnitude * speed * Time.deltaTime * transform.forward;
+        // Player.transform.position += playerMovement.magnitude * moveSpeed * Time.deltaTime * transform.forward;
     }
 
     private void FixedUpdate()
