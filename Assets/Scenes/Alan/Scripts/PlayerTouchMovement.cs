@@ -1,4 +1,3 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
@@ -14,7 +13,7 @@ public class PlayerTouchMovement : MonoBehaviour
 
     // Joystick size
     [SerializeField]
-    private Vector2 JoystickSize = new Vector2(200, 200);
+    private Vector2 JoystickSize = new Vector2(300, 300);
 
     // Reference to Floating Joystick object
     [SerializeField]
@@ -118,7 +117,7 @@ public class PlayerTouchMovement : MonoBehaviour
     {
         Vector2 joystickMove = moveAction.action.ReadValue<Vector2>().normalized;
 
-        // Debug.Log(joystickMove);
+        Debug.Log(joystickMove);
 
         Vector3 playerMovement = moveSpeed * Time.deltaTime * new Vector3(
             joystickMove.x,
@@ -126,7 +125,7 @@ public class PlayerTouchMovement : MonoBehaviour
             joystickMove.y    
         );
 
-        // Debug.Log(playerMovement);
+        Debug.Log(playerMovement);
 
         Player.transform.LookAt(Player.transform.position + playerMovement, Vector3.up);
         Player.transform.position += playerMovement.magnitude * moveSpeed * Time.deltaTime * transform.forward;
