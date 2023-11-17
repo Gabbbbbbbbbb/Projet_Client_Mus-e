@@ -864,7 +864,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 562101932}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9d677f1681015749b15c436eec6d880, type: 3}
   m_Name: 
@@ -1766,10 +1766,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5575081856291286787, guid: f5b233a8ab7316b4ab36136c9f8bf742,
+        type: 3}
+      propertyPath: Joystick
+      value: 
+      objectReference: {fileID: 204421480}
+    - target: {fileID: 5575081856291286787, guid: f5b233a8ab7316b4ab36136c9f8bf742,
+        type: 3}
+      propertyPath: m_ShowJoyStick
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7012262753209451565, guid: f5b233a8ab7316b4ab36136c9f8bf742,
         type: 3}
       propertyPath: m_Name
-      value: LeftStickHandler
+      value: LeftStickInputHandler
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
