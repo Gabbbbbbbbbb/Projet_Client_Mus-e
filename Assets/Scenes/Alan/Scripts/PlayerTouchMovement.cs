@@ -39,6 +39,7 @@ public class PlayerTouchMovement : MonoBehaviour
         playerRB = GetComponent<Rigidbody>();
     }
 
+    // Enhanced touch support provides automatic finger tracking and touch history recording.
     // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.2/api/UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.html
     private void OnEnable()
     {
@@ -57,7 +58,7 @@ public class PlayerTouchMovement : MonoBehaviour
         EnhancedTouchSupport.Disable();
     }
 
-     private void HandleFingerMove(Finger MovedFinger)
+    private void HandleFingerMove(Finger MovedFinger)
     {
         if (MovedFinger == MovementFinger)
         {
