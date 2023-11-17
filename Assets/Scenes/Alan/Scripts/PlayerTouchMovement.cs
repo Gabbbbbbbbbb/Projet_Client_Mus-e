@@ -144,4 +144,23 @@ public class PlayerTouchMovement : MonoBehaviour
         // currentMoveInput = Vector2.SmoothDamp(currentMoveInput, moveDirection, ref smoothInputSmoothVelocity, smoothTime);
         // playerRB.velocity = new Vector2(currentMoveInput.x * moveSpeed, currentMoveInput.y * moveSpeed);
     }
+
+    private Vector2 ClampStartPosition(Vector2 StartPosition)
+    {
+        if (StartPosition.x < JoystickSize.x / 2)
+        {
+            StartPosition.x = JoystickSize.x / 2;
+        }
+
+        if (StartPosition.y < JoystickSize.y / 2)
+        {
+            StartPosition.y = JoystickSize.y / 2;
+        }
+        else if (StartPosition.y > Screen.height - JoystickSize.y / 2)
+        {
+            StartPosition.y = Screen.height - JoystickSize.y / 2;
+        }
+
+        return StartPosition;
+    }
 }

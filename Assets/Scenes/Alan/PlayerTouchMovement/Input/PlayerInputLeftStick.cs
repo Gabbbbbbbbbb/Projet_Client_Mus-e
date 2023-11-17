@@ -19,7 +19,7 @@ public class PlayerInputLeftStick : MonoBehaviour
     [SerializeField]
     private InputActionReference ref_InputActionMove = null;
 
-    [Header("Floating JoyStick (IMG_LeftStick_BG):")]
+    [Header("JoyStick (IMG_LeftStick_BG):")]
     [SerializeField]
     private FloatingJoystick Joystick;
 
@@ -55,6 +55,12 @@ public class PlayerInputLeftStick : MonoBehaviour
     {
         m_MovementFinger = TouchedFinger;
         m_MovementAmount = Vector2.zero;
+
+        // Debug.Log("Movement Finger: " + m_MovementFinger);
+        // Debug.Log("Movement Amount: " + m_MovementAmount);
+
+        // ETouch.Touch currentTouch = TouchedFinger.currentTouch;
+        // Debug.Log("Current Touch: " + currentTouch);
 
         // if (m_MovementFinger == null && TouchedFinger.screenPosition.x <= Screen.width / 2.0f)
         // {
@@ -94,7 +100,9 @@ public class PlayerInputLeftStick : MonoBehaviour
         {
             Vector2 knobPosition;
             float maxMovement = JoystickSize.x / 2.0f;
+            
             ETouch.Touch currentTouch = MovedFinger.currentTouch;
+            // Debug.Log("Current Touch: " + currentTouch);
 
             if (Vector2.Distance(
                     currentTouch.screenPosition,
@@ -105,6 +113,8 @@ public class PlayerInputLeftStick : MonoBehaviour
                     currentTouch.screenPosition - Joystick.RectTransform.anchoredPosition
                     ).normalized
                     * maxMovement;
+
+                Debug.Log("Knob Position: " + knobPosition);
             }
             else
             {
