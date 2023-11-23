@@ -3433,7 +3433,7 @@ GameObject:
   - component: {fileID: 4535143326824316428}
   - component: {fileID: 2818077487878894106}
   - component: {fileID: 5437936610038831083}
-  - component: {fileID: 4336832393254192628}
+  - component: {fileID: 3086686227932368946}
   m_Layer: 0
   m_Name: 'low_poly_girl '
   m_TagString: Untagged
@@ -3533,7 +3533,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4336832393254192628
+--- !u!114 &3086686227932368946
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3542,13 +3542,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7159576255159156428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b7491b58a6c9234ba2e0c5d2e8bd9ee, type: 3}
+  m_Script: {fileID: 11500000, guid: c3231b414fc41d74f843071acb20bdc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 5437936610038831083}
-  _leftStick: {fileID: 8241085745663879785, guid: 4b20d0bc561321d428aca4ea6f7640ef,
-    type: 3}
-  _moveSpeed: 3
+  m_leftStick: {fileID: 0}
+  m_moveSpeed: 0
 --- !u!1 &7168715606892346163
 GameObject:
   m_ObjectHideFlags: 0
